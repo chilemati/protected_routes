@@ -1,0 +1,28 @@
+<nav class="nav">
+    <div class="logo"><a href="/api/protected/">Logo</a></div>
+    <div class="about"><a href="/api/protected/about">about</a></div>
+    <div>
+        <% if(user) { %>
+            <!-- <h1>User exist</h1> -->
+            <div class="group">
+                <div class="dashboard">
+                    <h5>Welcome, <%= user.email %>
+                    </h5>
+                </div>
+                <div class="signout"><a href="/api/protected/signout">signout</a></div>
+
+            </div>
+            <%} else{ %>
+                <!-- <h1>User does not exist</h1> -->
+                <div class="signup"><a href="/api/protected/signup">signup</a></div>
+                <div class="login"><a href="/api/protected/login">login</a></div>
+                <% } %>
+
+    </div>
+
+
+</nav>
+
+<script>
+    let result = fetch('*')
+</script>

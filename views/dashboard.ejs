@@ -1,0 +1,168 @@
+<%- include('./partials/head.ejs') %>
+
+    <body class="dashboard">
+        <%- include('./partials/nav.ejs') %>
+            <h1>Welcome to dashboard</h1>
+
+            <% if(user.userLevel=='admin' ) { %>
+                <h1>You are the admin</h1>
+                <button id="get-users">Get All Users</button>
+                <% if(allUsers ) { %>
+                    <div class="user-form">
+                        <h2>All Registared users </h2>
+                        <% allUsers.forEach((userr)=> { %>
+                            <div id="aUser">
+                                <form id="<%= userr._id %>">
+                                    <input type="text" readonly name="email" value="<%= userr.email%>" class="email">
+                                    <span>Current Level: <%= userr.userLevel%> </span>
+                                    <select name="level" class="level">
+                                        <option value="normal">
+                                            Normal
+                                        </option>
+                                        <option value="sub-admin">Sub-Admin
+                                        </option>
+                                        <option value="admin" disabled>
+                                            Admin
+                                        </option>
+                                    </select>
+                                    <button>Activate</button>
+                                </form>
+                            </div>
+                            <% }) %>
+
+                                <%}%>
+                    </div>
+                    <%} else if(user.userLevel=='sub-admin' ) { %>
+                        <h1>You are a sub-admin user</h1>
+                        <%} else { %>
+                            <h1>You are a normal user</h1>
+                            <% } %>
+                                <div id="users">
+                                    <h2 class="user-title"></h2>
+                                    <div class="user-body"></div>
+                                </div>
+
+
+
+
+
+                                <div id="pin-diag">
+                                    <form id="pin-form">
+                                        <h1>Pin Check</h1>
+
+                                        <label for=" email">Email</label>
+                                        <input type="email" name="email" placeholder="example@gmail.com" required
+                                            id="email" autocomplete="true">
+                                        <div class="email error"></div>
+
+                                        <label for="password">Pin</label>
+                                        <input type="password" name="pin" placeholder="Type your 6 digit pin" required
+                                            autocomplete="true" maxlength="6" id="pin">
+                                        <div class="pin error"></div>
+                                        <div class="btn">
+                                            <button>Comfirm</button> <button id="pin-exit">Exit pin Check?</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                                <script>
+                                    let form = document.querySelector('#pin-diag form');
+                                    let email = document.querySelector('#pin-diag  #email');
+                                    let pin = document.querySelector('#pin-diag  #pin');
+                                    let emailError = document.querySelector('.email.error');
+                                    let pinError = document.querySelector('.pin.error');
+                                    let exitPin = document.querySelector('#pin-exit');
+                                    let getUsers = document.querySelector('#get-users');
+                                    let pinDiag = document.querySelector('#pin-diag');
+                                    let pinState = false;
+                                    let allForm = document.querySelectorAll('#aUser form');
+                                    let allFormBtn = document.querySelectorAll('#aUser form button');
+                                    let uEmail = document.querySelector('#aUser .email');
+                                    let uLevel = document.querySelector('#aUser .level');
+
+                                    // ? exit pin check
+
+                                    exitPin.addEventListener('click', (e) => {
+                                        e.preventDefault(e);
+                                        let pinDiag = document.querySelector('#pin-diag');
+                                        pinDiag.style.display = 'none';
+                                    });
+
+                                    // ? show pin-diag
+                                    getUsers && getUsers.addEventListener('click', (e) => {
+                                        e.preventDefault(e);
+                                        let pinDiag = document.querySelector('#pin-diag');
+                                        pinDiag.style.display = 'block';
+
+                                    })
+
+                                    // console.log(form);
+                                    form.addEventListener('submit', async (e) => {
+                                        e.preventDefault(e);
+                                        // console.log(email.value);
+                                        // console.log(pin.value);
+                                        let result = await fetch('http://localhost:4000/api/protected/users', {
+                                            method: 'POST',
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify({
+                                                email: email.value,
+                                                pin: pin.value,
+                                            })
+                                        });
+                                        let res = await result.json();
+                                        // console.log(res);
+                                        emailError.textContent = res.email;
+                                        pinError.textContent = res.pin;
+                                        if (res.user) {
+
+                                            pinDiag.style.display = 'none';
+                                            let userForm = document.querySelector('.user-form');
+                                            userForm.style.display = 'block';
+                                            pinState = true;
+
+                                            // pinState && form.reset();
+                                        }
+
+
+                                    })
+
+                                    //  all users form 
+
+                                    allForm.forEach(form => {
+                                        form.addEventListener('submit', async (e) => {
+                                            e.preventDefault(e);
+                                            pinDiag.style.display = 'block';
+                                            if (pinState) {
+                                                console.log(e.target.email.value);
+                                                console.log(e.target.level.value);
+                                                // pinDiag.style.display = 'none';
+                                                let result = await fetch('http://localhost:4000/api/protected/users-level', {
+                                                    method: 'POST',
+                                                    headers: { "Content-Type": "application/json" },
+                                                    body: JSON.stringify({
+                                                        email: e.target.email.value,
+                                                        level: e.target.level.value,
+                                                    })
+                                                });
+                                                let res = await result.json();
+                                                // console.log(res);
+                                                if (res.allUser) {
+                                                    location.assign('http://localhost:4000/api/protected/dashboard');
+                                                }
+
+                                            }
+                                        })
+                                    })
+                                    // allFormBtn.forEach(btn => {
+                                    //     form.addEventListener('click', (e) => {
+                                    //         e.preventDefault(e);
+                                    //         console.log(e.target.email.value);
+                                    //         console.log(e.target.level.value);
+                                    //         pinDiag.style.display = 'block';
+                                    //     })
+                                    // })
+                                </script>
+
+
+                                <%- include('./partials/footer.ejs') %>

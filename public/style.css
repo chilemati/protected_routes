@@ -1,0 +1,165 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.nav {
+  box-shadow: 4px -4px 20px black;
+  border-radius: 10px 20px 10px 20px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+}
+.nav div {
+  padding: 0.5rem;
+}
+.nav div:hover {
+  background-color: rgba(128, 0, 128, 0.4);
+  border-radius: 8px;
+  transition: 0.8s ease-in-out;
+}
+.nav div a {
+  text-decoration: none;
+  color: blue;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 1.6vw;
+}
+
+.home {
+  background-color: coral;
+  color: white;
+}
+
+.signup {
+  position: relative;
+}
+.signup form {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  margin: 2rem 20%;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 5px 5px 20px black;
+  border-radius: 12px;
+  padding: 1rem;
+}
+.signup form h1 {
+  text-transform: uppercase;
+  font-size: 3vw;
+  font-weight: bold;
+}
+.signup form label {
+  align-self: flex-start;
+  margin-left: 11%;
+  margin-bottom: 1rem;
+}
+.signup form input {
+  width: 50%;
+  height: 3vh;
+  padding: 1rem 3rem;
+  outline: none;
+  border: 1px solid purple;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+.signup form .error {
+  margin: 0.5rem 0rem;
+  padding: 0.5rem;
+  color: red;
+  font-size: 1.5vw;
+}
+.signup form button {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  background-color: purple;
+  color: white;
+  font-size: 1.6vw;
+  border-radius: 11px;
+}
+.signup form button:hover {
+  background-color: green;
+  transition: 0.8s ease-in-out;
+}
+
+#pin-diag {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(128, 0, 128, 0.3);
+  position: fixed;
+  top: 0px;
+  backdrop-filter: blur(20px);
+}
+#pin-diag form {
+  position: sticky;
+  top: 25%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  margin: 2rem 20%;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 5px 5px 20px black;
+  border-radius: 12px;
+  padding: 1rem;
+}
+#pin-diag form h1 {
+  text-transform: uppercase;
+  font-size: 3vw;
+  font-weight: bold;
+}
+#pin-diag form label {
+  align-self: flex-start;
+  margin-left: 11%;
+  margin-bottom: 1rem;
+}
+#pin-diag form input {
+  width: 50%;
+  height: 3vh;
+  padding: 1rem 3rem;
+  outline: none;
+  border: 1px solid purple;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+#pin-diag form .error {
+  margin: 0.5rem 0rem;
+  padding: 0.5rem;
+  color: red;
+  font-size: 1.5vw;
+}
+#pin-diag form button {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  background-color: purple;
+  color: white;
+  font-size: 1.6vw;
+  border-radius: 11px;
+}
+#pin-diag form button:hover {
+  background-color: green;
+  transition: 0.8s ease-in-out;
+}
+
+.dashboard .user-form h2 {
+  color: red;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 5vw;
+}
+.dashboard .user-form #aUser {
+  padding: 1rem;
+  margin: 0.5rem 5%;
+  border: 2px solid purple;
+}
+
+/*# sourceMappingURL=style.css.map */

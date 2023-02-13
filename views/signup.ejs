@@ -1,0 +1,55 @@
+<%- include('./partials/head.ejs') %>
+
+    <body class="signup">
+        <%- include('./partials/nav.ejs') %>
+            <form>
+                <h1>Sign up</h1>
+                <label for="email">Email</label>
+                <input type="email" name="email" placeholder="example@gmail.com" required id="email"
+                    autocomplete="true">
+                <div class="email error"></div>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="use alphanumeric with symbols" required
+                    autocomplete="true" id="password">
+                <div class="password error"></div>
+                <div class="btn">
+                    <button>Sign up</button>
+                </div>
+
+            </form>
+            <script>
+                let form = document.querySelector('.signup form');
+                let email = document.querySelector('.signup #email');
+                let password = document.querySelector('.signup #password');
+                let emailError = document.querySelector('.email.error');
+                let passwordError = document.querySelector('.password.error');
+
+                // console.log(form);
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault(e);
+                    // console.log(email.value);
+                    // console.log(password.value);
+                    let result = await fetch('http://localhost:4000/api/protected/signup', {
+                        method: 'POST',
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            email: email.value,
+                            password: password.value,
+                        })
+                    });
+                    let res = await result.json();
+                    console.log(res);
+                    emailError.textContent = res.email;
+                    passwordError.textContent = res.password;
+                    if (res.user) {
+                        form.reset();
+                        location.assign(`http://localhost:4000/api/protected`);
+                    }
+
+
+                })
+            </script>
+
+
+            <%- include('./partials/footer.ejs') %>

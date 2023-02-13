@@ -1,0 +1,14 @@
+<footer>
+    &copy; Protected, <span class="date">2022</span>
+</footer>
+<script>
+    let date = document.querySelector('footer .date');
+    // console.log(date);
+    let d = new Date();
+    let year = d.toDateString();
+    // console.log(year.split(' ')[3]);
+    date.textContent = year.split(' ')[3];
+</script>
+</body>
+
+</html>
